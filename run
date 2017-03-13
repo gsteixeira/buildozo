@@ -1,0 +1,22 @@
+#!/bin/bash 
+
+
+NOME="buildozo"
+
+# BASE_DIR="/home/user/xs/mnt/git/xserver"
+
+# source /etc/xserver.conf
+
+# DATA_DIR="$BASE_DIR/dados/server-eljefe"
+# BKP_DIR="$BASE_DIR/dados/becapes"
+
+DEV_DIR="/home/user/xs/mnt/git/"
+
+MOUNTS=" -v $DEV_DIR:/devel/ "
+
+echo $MOUNTS
+
+docker rm -f $(docker ps -a -f name=$NOME -q)
+docker run --name $NOME -t $MOUNTS $NOME /bin/bash
+
+
