@@ -1,21 +1,24 @@
 #!/bin/bash
 
 
-nginx -t
-
 echo "########################################"
-echo "####         eljefe server          ####"
+echo "####           Buildozo             ####"
 echo "####                                ####"
 echo "########################################"
 
-echo "Iniciando o cron..."
-service cron start
 
-echo "Iniciando o nginx..."
-service nginx start
+/bin/bash
+
+
+
+# echo "Iniciando o cron..."
+# service cron start
+# 
+# echo "Iniciando o nginx..."
+# service nginx start
 # nginx
 
-tail -f /var/log/nginx/access.log
+# tail -f /var/log/nginx/access.log
 
 # echo "iniciando o syslog..."
 # /etc/init.d/rsyslog start
