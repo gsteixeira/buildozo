@@ -5,5 +5,5 @@ NOME="buildozo"
 
 cd /home/user/xs/mnt/git/buildozo
 
-docker build --tag $NOME .
+time docker build --tag $NOME .
 
