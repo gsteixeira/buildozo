@@ -1,4 +1,22 @@
-FROM xdebian
+FROM debian
+
+ENV DEBIAN_FRONTEND noninteractive
+
+
+RUN apt-get update
+
+RUN apt-get install -y apt-utils && \
+    apt-get -y dist-upgrade && \
+    apt-get -y install tar bzip2 gzip wget apt-utils locales vim git
+    
+ENV LANG en_US.utf8
+ENV LC_ALL en_US.utf8
+
+
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+    echo "pt_BR.UTF-8 UTF-8" >> /etc/locale.gen && \
+    locale-gen en_US en_US.utf8 pt_BR pt_BR.utf8 && \
+    dpkg-reconfigure locales
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
 
