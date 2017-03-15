@@ -16,6 +16,6 @@ MOUNTS=" -v $DEV_DIR:/devel/ "
 echo $MOUNTS
 
 docker rm -f $(docker ps -a -f name=$NOME -q)
-docker run --name $NOME -t $MOUNTS $NOME /bin/bash
+docker run --name $NOME -it $MOUNTS $NOME
 
 
