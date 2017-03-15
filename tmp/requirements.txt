@@ -1,0 +1,4 @@
+Cython>=0.23.4
+Kivy==1.9.1
+buildozer==0.32
+python-for-android==0.4

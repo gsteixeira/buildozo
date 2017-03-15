@@ -22,12 +22,17 @@ RUN apt-get build-dep -y pygame libxml2 && \
     pip install -U Cython && \ 
     pip install hg+http://bitbucket.org/pygame/pygame 
 
+ADD tmp/requirements.txt /tmp/
+RUN pip install -r /tmp/requirements.txt
 
-ADD tmp/ /usr/src/
-RUN cd /usr/src/passwall && \
+# ADD tmp/ /usr/src/
+# RUN cd /usr/src/passwall && \
+RUN cd /usr/src/ && \
 #     pip install virtualenv && \ 
 #     virtualenv /venvs/passwall/ && \
 #     . /venvs/passwall/bin/activate && \
+    git clone https://github.com/gstsistemas/passwall && \ 
+    cd passwall && \ 
     pip install Cython && \ 
     pip install -r requirements.txt && \
     cd /usr/src/passwall && \
