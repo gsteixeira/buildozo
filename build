@@ -3,7 +3,6 @@
 
 NOME="buildozo"
 
-cd /home/user/xs/mnt/git/buildozo
 
 time docker build --tag $NOME .
 

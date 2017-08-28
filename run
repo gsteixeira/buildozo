@@ -8,10 +8,11 @@ NOME="buildozo"
 # DEV_DIR="/YOURDEVDIR/git/"
 if [ "$DEV_DIR" == "" ];
 then
-    DEV_DIR = '/home/user/git/'
+    DEV_DIR='/home/user/dev/'
 fi
 
-MOUNTS=" -v $DEV_DIR:/devel/ "
+# This will mount your dev dir and also a directory to buildozer place its stuff
+MOUNTS=" -v $DEV_DIR:/devel/ -v /var/lib/buildozer:/var/lib/buildozer "
 
 echo $MOUNTS
 

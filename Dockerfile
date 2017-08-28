@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:stretch
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -18,45 +18,34 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen en_US en_US.utf8 pt_BR pt_BR.utf8 && \
     dpkg-reconfigure locales
 
-ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
 ADD etc/ /etc/
-
 RUN dpkg --add-architecture i386 && \
     apt-get update && \ 
     apt-get install -y python wget curl python-dev cython mercurial \ 
-                        sqlite3 libsqlite3-dev openjdk-7-jdk \ 
+                        sqlite3 libsqlite3-dev openjdk-8-jdk \ 
                         build-essential ccache git unzip\ 
                         libncurses5:i386 libstdc++6:i386 libgtk2.0-0:i386 \ 
                         libpangox-1.0-0:i386 libpangoxft-1.0-0:i386  \ 
                         libidn11:i386 zlib1g:i386 zlib1g-dev \ 
-                        python2.7 python2.7-dev 
+                        python2.7 python2.7-dev libfreetype6 libfreetype6-dev \
+                        android-sdk-platform-tools
 
+RUN apt-get install -y libsdl2-2.0-0 libsdl2-image-2.0-0 libsdl2-mixer-2.0-0 libsdl2-ttf-2.0-0
 
 RUN apt-get build-dep -y pygame libxml2 && \
     cd /usr/src/ && \
     wget https://bootstrap.pypa.io/get-pip.py && \
     python get-pip.py && \ 
     pip install -U Cython && \ 
-    pip install hg+http://bitbucket.org/pygame/pygame 
+    pip install mercurial && \ 
+    pip install hg+http://bitbucket.org/pygame/pygame  && \ 
+    apt-get install -y python-pygame
 
 ADD tmp/requirements.txt /tmp/
-RUN pip install -r /tmp/requirements.txt
+RUN pip install Cython==0.25.2 && \
+    pip install -r /tmp/requirements.txt && \
+    pip install -U
 
-# ADD tmp/ /usr/src/
-# RUN cd /usr/src/passwall && \
-RUN cd /usr/src/ && \
-#     pip install virtualenv && \ 
-#     virtualenv /venvs/passwall/ && \
-#     . /venvs/passwall/bin/activate && \
-    git clone https://github.com/gstsistemas/passwall && \ 
-    cd passwall && \ 
-    pip install Cython && \ 
-    pip install -r requirements.txt && \
-    cd /usr/src/passwall && \
-    buildozer android debug && \
-    apt-get clean
-    
-    
 CMD ["/etc/entrypoint.sh"]
-# CMD ["/bin/bash"]

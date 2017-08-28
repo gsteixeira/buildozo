@@ -6,6 +6,7 @@ echo "####           Buildozo             ####"
 echo "####                                ####"
 echo "########################################"
 
+cd /devel
 
 /bin/bash
 
